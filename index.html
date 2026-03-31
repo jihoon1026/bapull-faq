@@ -102,6 +102,11 @@
   .checklist-item:last-child { border-bottom: none; }
   .check-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #FCEBEB; color: #A32D2D; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
 
+  /* INSTALL GUIDE */
+  .install-video { width: 100%; border-radius: 10px; margin: 8px 0 16px; display: block; }
+  .install-images { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .install-images img { width: 100%; border-radius: 8px; display: block; }
+
   /* FOOTER */
   .site-footer { text-align: center; padding: 32px 20px; font-size: 12px; color: var(--text3); border-top: 1px solid var(--border); }
 
@@ -480,6 +485,31 @@
         <div class="checklist-item"><div class="check-num">7</div><div>나뭇결·나무가루·섬유질 민감하신 분 구매 비권장</div></div>
         <div class="checklist-item"><div class="check-num">8</div><div>A/S 소요 기간 길 수 있음 (지역에 따라 최대 1년 이상)</div></div>
         <div class="box box-red" style="margin-top:12px;">본 구매가이드에 나온 내용을 숙지 후 주문해 주세요. 설치 조건 미확인으로 인한 피해는 보상이 어렵습니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 5 ===== -->
+  <div class="section">
+    <div class="section-label"><span style="background:#5C3D2E"></span> Bapull 설치 가이드</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#F5EDE8;color:#5C3D2E;">Q</div>
+        <span class="q-text">바풀 설치 방법을 영상과 이미지로 확인하고 싶어요.</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        설치 전 아래 영상과 이미지를 꼭 확인해 주세요.<br><br>
+        <video class="install-video" controls playsinline>
+          <source src="install_guide.mp4" type="video/mp4">
+        </video>
+        <div class="install-images">
+          <img src="install_1.jpg" alt="설치 가이드 1">
+          <img src="install_2.jpg" alt="설치 가이드 2">
+          <img src="install_3.jpg" alt="설치 가이드 3">
+          <img src="install_4.jpg" alt="설치 가이드 4">
+        </div>
       </div>
     </div>
   </div>
