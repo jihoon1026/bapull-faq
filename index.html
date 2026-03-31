@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>바풀(Bapull) 미국 공구 FAQ</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F7F7F5;
+    --card: #FFFFFF;
+    --border: #E5E5E3;
+    --text: #1A1A1A;
+    --text2: #555555;
+    --text3: #888888;
+    --blue: #185FA5;
+    --teal: #0F6E56;
+    --amber: #BA7517;
+    --red: #A32D2D;
+    --green-bg: #F0FAF5;
+    --green-border: #1D9E75;
+    --red-bg: #FEF2F2;
+    --red-border: #E24B4A;
+    --amber-bg: #FFFBF0;
+    --amber-border: #BA7517;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+  a { color: var(--blue); }
+
+  /* HEADER */
+  .site-header { background: #111; color: #fff; padding: 48px 24px 40px; text-align: center; }
+  .site-header h1 { font-size: clamp(22px, 5vw, 36px); font-weight: 700; letter-spacing: -0.5px; }
+  .site-header p { color: #999; font-size: 14px; margin-top: 8px; }
+  .limit-badge { display: inline-block; margin-top: 16px; background: #222; border: 1px solid #444; color: #ccc; font-size: 13px; padding: 6px 16px; border-radius: 99px; }
+
+  /* LAYOUT */
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+
+  /* SECTION */
+  .section { margin-bottom: 40px; }
+  .section-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .section-label span { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+
+  /* FAQ ITEM */
+  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px; overflow: hidden; transition: box-shadow 0.15s; }
+  .faq-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .faq-q { width: 100%; text-align: left; background: none; border: none; padding: 16px 18px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; }
+  .faq-q:hover { background: #FAFAF8; }
+  .q-badge { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 1px; }
+  .q-text { font-size: 15px; font-weight: 600; color: var(--text); flex: 1; line-height: 1.5; }
+  .q-arrow { flex-shrink: 0; font-size: 11px; color: var(--text3); margin-top: 5px; transition: transform 0.2s; }
+  .faq-item.open .q-arrow { transform: rotate(180deg); }
+  .faq-a { font-size: 14px; color: var(--text2); line-height: 1.75; padding: 0 18px 16px 52px; display: none; }
+  .faq-a.open { display: block; }
+
+  /* TAGS */
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-right: 4px; vertical-align: middle; }
+  .tag-blue { background: #E6F1FB; color: #0C447C; }
+  .tag-teal { background: #E1F5EE; color: #085041; }
+  .tag-amber { background: #FFF3DC; color: #7A5010; }
+  .tag-red { background: #FCEBEB; color: #791F1F; }
+  .tag-purple { background: #EEEDFE; color: #3C3489; }
+
+  /* INFO BOXES */
+  .box { border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0 4px; font-size: 13px; line-height: 1.65; }
+  .box-teal { background: var(--green-bg); border-left: 3px solid var(--green-border); color: #1A4A35; }
+  .box-red { background: var(--red-bg); border-left: 3px solid var(--red-border); color: #7A1F1F; font-weight: 600; }
+  .box-amber { background: var(--amber-bg); border-left: 3px solid var(--amber-border); color: #6A3E08; }
+
+  /* PRODUCT CARDS */
+  .product-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 10px 0; }
+  .product-card-header { background: #1A1A2E; color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .product-card-header .name { font-size: 14px; font-weight: 600; }
+  .product-card-header .price { font-size: 15px; font-weight: 700; color: #7FBAFF; }
+  .product-card-body { padding: 0; }
+  .pc-row { display: flex; gap: 8px; padding: 8px 16px; border-bottom: 1px solid #F0F0EE; font-size: 13px; }
+  .pc-row:last-child { border-bottom: none; }
+  .pc-label { color: var(--text3); min-width: 70px; flex-shrink: 0; font-weight: 500; }
+  .pc-value { color: #333; }
+  .pc-value.warn { color: var(--red); font-weight: 600; }
+
+  /* ZONE CARDS */
+  .zone-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 10px 0; }
+  .zone-card-header { padding: 12px 16px; }
+  .zone-card-header .zone-id { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .zone-card-header .zone-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .zone-card-header .zone-badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 99px; margin-top: 4px; }
+  .zone-card-body { border-top: 1px solid var(--border); }
+  .zr { display: flex; gap: 8px; padding: 8px 16px; border-bottom: 1px solid #F5F5F3; font-size: 13px; }
+  .zr:last-child { border-bottom: none; }
+  .zr-label { color: var(--text3); min-width: 70px; flex-shrink: 0; font-weight: 500; }
+
+  /* STEPS */
+  .step-row { display: flex; gap: 10px; margin: 6px 0; }
+  .step-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .step-text { font-size: 14px; color: var(--text2); line-height: 1.55; }
+
+  /* CHECKLIST */
+  .checklist-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #FCEBEB; color: #A32D2D; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+
+  /* FOOTER */
+  .site-footer { text-align: center; padding: 32px 20px; font-size: 12px; color: var(--text3); border-top: 1px solid var(--border); }
+
+  /* MOBILE */
+  @media (max-width: 480px) {
+    .faq-a { padding-left: 18px; }
+    .product-card-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>바풀(Bapull) 미국 공구 FAQ</h1>
+  <p>구매 전 본 내용을 반드시 숙지 후 주문해 주세요</p>
+  <div class="limit-badge">전체 한정 50개</div>
+</header>
+
+<div class="container">
+
+  <!-- ===== SECTION 1 ===== -->
+  <div class="section">
+    <div class="section-label"><span style="background:#185FA5"></span> 공구 일정 &amp; 주문 방법</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#E6F1FB;color:#185FA5;">Q</div>
+        <span class="q-text">공구는 언제 시작하나요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        <span class="tag tag-amber">기존 고객</span> <strong>2026년 3월 31일(화)</strong> — 서부(PT) 오전 9:00 / 동부(ET) 낮 12:00 · 한정 <strong>25개</strong><br><br>
+        <span class="tag tag-teal">일반 고객</span> <strong>2026년 4월 1일(수)</strong> — 서부(PT) 오전 9:00 / 동부(ET) 낮 12:00 · 한정 <strong>50개</strong>
+        <div class="box box-teal" style="margin-top:12px;">기존 고객은 dchoi09.com 또는 dchoiglobal.com에서 구매이력이 있는 고객입니다. 수량 소진 시 조기 마감되므로 오픈 시간에 맞춰 빠르게 주문하세요.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#E6F1FB;color:#185FA5;">Q</div>
+        <span class="q-text">주문 방법이 어떻게 되나요? 단계별로 알려주세요.</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        주문은 아래 3단계로 진행됩니다.<br><br>
+        <div class="step-row"><div class="step-num">1</div><div class="step-text"><strong>사이트에서 주문</strong> — dchoiglobal.com에서 주문. 결제수단은 Zelle로 선택하되, 이 단계에서 실제 입금은 하지 마세요. 실제 결제는 Step 3에서 진행됩니다.</div></div>
+        <div class="step-row"><div class="step-num">2</div><div class="step-text"><strong>주문번호 전달</strong> — 주문 완료 후 안내된 링크를 통해 주문번호를 제출합니다.</div></div>
+        <div class="step-row"><div class="step-num">3</div><div class="step-text"><strong>Waiver 제출 및 결제</strong> — 카카오톡 1대 1 채널에서 Waiver 링크를 수령하고 반드시 제출해야 합니다. 최종 인보이스를 받은 후 결제를 진행합니다.</div></div>
+        <div class="box box-red">Waiver 미제출 시 주문이 자동 취소됩니다. 주문 후 카카오톡 1대 1 채널을 반드시 확인해 주세요.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#E6F1FB;color:#185FA5;">Q</div>
+        <span class="q-text">결제는 어떻게 하나요? 카드로도 가능한가요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        기본 결제수단은 <strong>Zelle</strong>입니다. 가이드에 안내된 가격은 모두 Zelle 기준 가격입니다.<br><br>
+        카드 결제도 가능하지만 <strong>3% 추가 수수료</strong>가 발생합니다.
+        <div class="box box-teal">주문 시 사이트에서 Zelle를 선택해도 이 단계에서 실제 입금하지 마세요. Waiver 제출 후 최종 인보이스를 받은 뒤 결제합니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2 ===== -->
+  <div class="section">
+    <div class="section-label"><span style="background:#0F6E56"></span> 상품 가격 및 구성</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#E1F5EE;color:#0F6E56;">Q</div>
+        <span class="q-text">상품 종류와 가격이 어떻게 되나요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        총 3가지 모델이 있습니다.<br><br>
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">바풀 분리식 타공</span><span class="price">$599</span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">기본 구성</span><span class="pc-value">본체 + 핸디바</span></div>
+            <div class="pc-row"><span class="pc-label">추가 옵션</span><span class="pc-value"><span class="tag tag-purple">2단 매트 +$99</span><span class="tag tag-purple">보우 +$499</span></span></div>
+            <div class="pc-row"><span class="pc-label">최대 하중</span><span class="pc-value">110kg</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">바풀 원피스 타공</span><span class="price">$699</span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">기본 구성</span><span class="pc-value">본체 + 핸디바</span></div>
+            <div class="pc-row"><span class="pc-label">추가 옵션</span><span class="pc-value"><span class="tag tag-purple">2단 매트 +$99</span><span class="tag tag-purple">보우 +$499</span><span class="tag tag-purple">무타공 키트 +$200</span></span></div>
+            <div class="pc-row"><span class="pc-label">최대 하중</span><span class="pc-value">110kg</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">바풀 원피스 무타공</span><span class="price">$899 <span style="font-size:12px;opacity:0.7;">($699+$200)</span></span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">기본 구성</span><span class="pc-value">본체 + 핸디바 + 무타공 키트 (헤드+발판+1단 매트)</span></div>
+            <div class="pc-row"><span class="pc-label">추가 옵션</span><span class="pc-value"><span class="tag tag-purple">2단 매트 +$99</span><span class="tag tag-purple">보우 +$499</span></span></div>
+            <div class="pc-row"><span class="pc-label">최대 하중</span><span class="pc-value">80kg <span style="color:#888;">(발판 추가 시 100kg)</span></span></div>
+          </div>
+        </div>
+        <div class="box box-teal">가격은 Zelle 기준입니다. 카드 결제 시 3% 추가됩니다.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#E1F5EE;color:#0F6E56;">Q</div>
+        <span class="q-text">추가 옵션 상품(보우, 2단 매트)은 무엇인가요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">보우 (쿠션 포함)</span><span class="price">$499</span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">사이즈</span><span class="pc-value">1210×645×405mm / 13.6kg</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">2단 매트</span><span class="price">$99</span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">사이즈</span><span class="pc-value">700×1060mm</span></div>
+          </div>
+        </div>
+        추가 옵션은 주문 시 함께 선택하며, 모델에 따라 선택 가능한 옵션이 다를 수 있습니다.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#E1F5EE;color:#0F6E56;">Q</div>
+        <span class="q-text">분리식 타공 vs 원피스 타공 vs 원피스 무타공, 차이가 무엇인가요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">분리식 타공</span><span class="price">$599</span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">박스</span><span class="pc-value">2개 — 본체 1330×750×245mm(16.3kg) + 핸디바 640×640×305mm(2.8kg)</span></div>
+            <div class="pc-row"><span class="pc-label">픽업 차량</span><span class="pc-value">SUV / 미니밴 이상 (베이비시트 없이)</span></div>
+            <div class="pc-row"><span class="pc-label">벽 조건</span><span class="pc-value">목재 스터드(Wood Stud) 설치 필수</span></div>
+            <div class="pc-row"><span class="pc-label">천장 높이</span><span class="pc-value">무관</span></div>
+            <div class="pc-row"><span class="pc-label">바닥</span><span class="pc-value">카펫 가능</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">원피스 타공</span><span class="price">$699</span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">박스</span><span class="pc-value">2개 — 본체 2240×700×265mm(11kg) + 핸디바 640×640×305mm(2.8kg)</span></div>
+            <div class="pc-row"><span class="pc-label">픽업 차량</span><span class="pc-value">미니밴 / 팰리세이드급 이상 (베이비시트 없이)</span></div>
+            <div class="pc-row"><span class="pc-label">벽 조건</span><span class="pc-value">목재 스터드(Wood Stud) 설치 필수</span></div>
+            <div class="pc-row"><span class="pc-label">천장 높이</span><span class="pc-value">무관</span></div>
+            <div class="pc-row"><span class="pc-label">바닥</span><span class="pc-value">카펫 가능</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-header"><span class="name">원피스 무타공</span><span class="price">$899</span></div>
+          <div class="product-card-body">
+            <div class="pc-row"><span class="pc-label">박스</span><span class="pc-value">3개 — 본체 + 핸디바 + 무타공 키트</span></div>
+            <div class="pc-row"><span class="pc-label">픽업 차량</span><span class="pc-value">미니밴 / 팰리세이드급 이상 (베이비시트 없이)</span></div>
+            <div class="pc-row"><span class="pc-label">벽 조건</span><span class="pc-value">단단한 벽 / 헤드거리 7cm, 걸레받이 12cm, 몰딩 6cm 이내</span></div>
+            <div class="pc-row"><span class="pc-label">천장 높이</span><span class="pc-value warn">7.51ft~7.84ft (2290~2389mm) 필수 ⚠</span></div>
+            <div class="pc-row"><span class="pc-label">바닥</span><span class="pc-value warn">카펫 불가 — 대리석/평평한 마루만 가능 ⚠</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 3 ===== -->
+  <div class="section">
+    <div class="section-label"><span style="background:#BA7517"></span> 지역별 픽업 &amp; 배송</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FAEEDA;color:#633806;">Q</div>
+        <span class="q-text">수령 방법은 어떻게 되나요? 택배 배송도 되나요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        이번 바풀 공구는 <strong>픽업</strong>과 <strong>Local 배송(직접 배달)</strong> 두 가지만 가능합니다. 택배 배송은 제공되지 않습니다.<br><br>
+        <span class="tag tag-teal">픽업</span> 지정 장소에서 직접 수령. 지역에 따라 추가비 발생.<br><br>
+        <span class="tag tag-blue">Local 배송</span> dchoi09 담당자가 고객님 댁으로 직접 배송. 배송비 $50~$100 발생 (지역/존에 따라 추가비 상이).
+        <div class="box box-teal">설치 서비스는 제공되지 않습니다. 수령 후 고객님이 직접 설치하셔야 합니다.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FAEEDA;color:#633806;">Q</div>
+        <span class="q-text">제가 사는 지역도 픽업/배송이 가능한가요? 지역별 상세 안내가 궁금합니다.</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        지역은 5개 존(Zone)으로 나뉩니다.<br><br>
+
+        <div class="zone-card">
+          <div class="zone-card-header" style="background:#F0FAF5;">
+            <div class="zone-id" style="color:#0F6E56;">A1 ZONE</div>
+            <div class="zone-name">SoCal (LA/OC)</div>
+            <span class="zone-badge" style="background:#E1F5EE;color:#085041;">픽업 추가비 없음</span>
+          </div>
+          <div class="zone-card-body">
+            <div class="zr"><span class="zr-label">픽업 장소</span> Santa Fe Springs (추가비 없음)</div>
+            <div class="zr"><span class="zr-label">Local 배송</span> LA, OC, San Diego — 배송비 $50~$100</div>
+            <div class="zr"><span class="zr-label">수령 예정</span> 5월 중순</div>
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zone-card-header" style="background:#F0FAF5;">
+            <div class="zone-id" style="color:#0F6E56;">A2 ZONE</div>
+            <div class="zone-name">NJ / NY</div>
+            <span class="zone-badge" style="background:#E1F5EE;color:#085041;">픽업 추가비 없음</span>
+          </div>
+          <div class="zone-card-body">
+            <div class="zr"><span class="zr-label">픽업 장소</span> Saddle Brook, NJ (추가비 없음)</div>
+            <div class="zr"><span class="zr-label">Local 배송</span> North/Central NJ, Manhattan, Bayside NY — 배송비 $50~$100</div>
+            <div class="zr"><span class="zr-label">수령 예정</span> 5월 말</div>
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zone-card-header" style="background:#F0FAF5;">
+            <div class="zone-id" style="color:#0F6E56;">A3 ZONE</div>
+            <div class="zone-name">Houston, TX</div>
+            <span class="zone-badge" style="background:#E1F5EE;color:#085041;">픽업 추가비 없음</span>
+          </div>
+          <div class="zone-card-body">
+            <div class="zr"><span class="zr-label">픽업 장소</span> Houston (추가비 없음)</div>
+            <div class="zr"><span class="zr-label">Local 배송</span> Houston 인근 — 배송비 $50~$100</div>
+            <div class="zr"><span class="zr-label">수령 예정</span> 5월 말 ~ 6월 중순</div>
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zone-card-header" style="background:#FFFBF0;">
+            <div class="zone-id" style="color:#BA7517;">B ZONE</div>
+            <div class="zone-name">Dallas/Austin/DMV/NorCal</div>
+            <span class="zone-badge" style="background:#FFF3DC;color:#7A5010;">픽업 추가비 +$100</span>
+          </div>
+          <div class="zone-card-body">
+            <div class="zr"><span class="zr-label">픽업 장소</span> Dallas/Austin, DMV, NorCal — 추가비 +$100</div>
+            <div class="zr"><span class="zr-label">Local 배송</span> 배송비 $50~$100 (총 추가금 $150~$200)</div>
+            <div class="zr"><span class="zr-label">수령 예정</span> DMV 5월 말 / NorCal 5월 중순 / Dallas·Austin 6월 중순</div>
+          </div>
+        </div>
+
+        <div class="zone-card">
+          <div class="zone-card-header" style="background:#FEF2F2;">
+            <div class="zone-id" style="color:#A32D2D;">C ZONE</div>
+            <div class="zone-name">Seattle/Chicago/ATL</div>
+            <span class="zone-badge" style="background:#FCEBEB;color:#791F1F;">픽업 추가비 +$150</span>
+          </div>
+          <div class="zone-card-body">
+            <div class="zr"><span class="zr-label">픽업 장소</span> Seattle, Chicago, ATL — 추가비 +$150</div>
+            <div class="zr"><span class="zr-label">Local 배송</span> 배송비 $50~$100 (총 추가금 $200~$250)</div>
+            <div class="zr"><span class="zr-label">수령 예정</span> Seattle 5월 중순 / Chicago 6월 초 / ATL 5월 말</div>
+          </div>
+        </div>
+
+        <div class="box box-teal">위 지역 외 거주 고객은 구매 전 카카오톡 1대 1 채널로 문의 주세요.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FAEEDA;color:#633806;">Q</div>
+        <span class="q-text">픽업 시 어떤 차량이 필요한가요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        모델에 따라 필요한 차량 크기가 다릅니다. 반드시 차량과 박스 사이즈를 미리 확인하세요.<br><br>
+        <span class="tag tag-blue">분리식 타공</span> SUV / 미니밴 이상 (베이비시트 없이)<br>
+        <span style="color:#888;font-size:13px;padding-left:4px;">— 박스: 1330×750×245mm (16.3kg) + 640×640×305mm (2.8kg)</span><br><br>
+        <span class="tag tag-blue">원피스 타공</span> 미니밴 / 팰리세이드급 이상 (베이비시트 없이)<br>
+        <span style="color:#888;font-size:13px;padding-left:4px;">— 박스: 2240×700×265mm (11kg) + 640×640×305mm (2.8kg)</span><br><br>
+        <span class="tag tag-blue">원피스 무타공</span> 미니밴 / 팰리세이드급 이상 (베이비시트 없이)<br>
+        <span style="color:#888;font-size:13px;padding-left:4px;">— 박스: 3개 (본체 + 핸디바 + 무타공 키트)</span>
+        <div class="box box-red">차량 크기가 맞지 않으면 픽업이 불가합니다. 반드시 박스 사이즈를 미리 확인하세요.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4 ===== -->
+  <div class="section">
+    <div class="section-label"><span style="background:#A32D2D"></span> 구매 전 반드시 확인하세요</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FCEBEB;color:#A32D2D;">Q</div>
+        <span class="q-text">어린이도 사용할 수 있나요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        <strong>아니요.</strong> 바풀은 어린이용 제품이 아닌 <strong>성인 운동용 제품</strong>입니다. 어린이의 사용 및 접근에 주의해 주세요.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FCEBEB;color:#A32D2D;">Q</div>
+        <span class="q-text">우리 집 벽에 설치할 수 있는지 어떻게 확인하나요? (타공 모델)</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        타공 모델(분리식/원피스)은 <strong>목재 스터드(Wood Stud)에 정확히 설치</strong>해야 합니다.<br><br>
+        <div class="step-row"><div class="step-num">1</div><div class="step-text">Stud Finder로 벽 속 목재 스터드 위치 확인 (Stud Finder는 별도 구매 필요)</div></div>
+        <div class="step-row"><div class="step-num">2</div><div class="step-text">최대 110kg 하중을 버틸 수 있는 구조체에 고정되어야 합니다</div></div>
+        <div class="step-row"><div class="step-num">3</div><div class="step-text">설치 영상이 제공되므로 영상을 참고하여 직접 설치</div></div>
+        <div class="box box-red">석고보드에만 설치 시 무너질 수 있습니다. 반드시 Wood Stud를 확인 후 설치하세요.</div>
+        천장 높이는 무관하며, 바닥은 카펫도 가능합니다.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FCEBEB;color:#A32D2D;">Q</div>
+        <span class="q-text">무타공 모델 설치 조건이 따로 있나요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        무타공 모델은 벽에 구멍을 뚫지 않는 대신 설치 조건이 더 까다롭습니다.<br><br>
+        <span class="tag tag-red">천장 높이</span> 반드시 <strong style="color:#A32D2D;">7.51ft~7.84ft (2290~2389mm)</strong> 사이여야 합니다. 이 범위를 벗어나면 설치 불가.<br><br>
+        <span class="tag tag-red">설치 불가 천장</span> 힘없는 천장(밀면 들썩임), 젖은 천장(누수·결로·물 얼룩)<br><br>
+        <span class="tag tag-red">바닥</span> 대리석 또는 평평한 마루만 가능. <strong style="color:#A32D2D;">카펫은 설치 불가.</strong><br><br>
+        <span class="tag tag-red">벽 조건</span> 단단한 벽 필요. 헤드거리 7cm / 걸레받이 12cm / 몰딩 6cm 이내.
+        <div class="box box-red">구매 전 천장 높이와 바닥 소재를 반드시 측정하세요. 조건 불충족 시 설치가 불가하며 반품도 어렵습니다.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FCEBEB;color:#A32D2D;">Q</div>
+        <span class="q-text">주문 후 취소나 환불이 가능한가요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        <div class="box box-red">프리오더 상품은 결제 완료 후 취소가 절대 불가합니다.</div>
+        신중하게 상품을 선택하시고, 설치 조건을 충분히 확인한 후 주문해 주세요.<br><br>
+        단, <strong>Waiver 미제출 시</strong>에는 주문이 자동 취소됩니다. (결제 전 단계이므로 환불 불필요)
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FCEBEB;color:#A32D2D;">Q</div>
+        <span class="q-text">A/S는 어떻게 되나요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        <span class="tag tag-red">A/S 불가</span> 운송 중 발생한 미세한 스크래치는 A/S 대상이 아닙니다.<br><br>
+        <span class="tag tag-amber">구매 비권장</span> 나뭇결, 나무가루, 섬유질에 민감하신 분은 구매를 권장하지 않습니다.<br><br>
+        <span class="tag tag-blue">A/S 소요 기간</span><br>
+        <span style="padding-left:4px;">— Houston, NJ/NY, SoCal: 약 3개월 이상 소요 예상</span><br>
+        <span style="padding-left:4px;">— 이외 지역: 1년 이상 소요 예상</span>
+        <div class="box box-amber">A/S는 수개월 이상 소요될 수 있습니다. 지방/원거리 지역 고객은 특히 충분히 고려 후 구매해 주세요.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">
+        <div class="q-badge" style="background:#FCEBEB;color:#A32D2D;">Q</div>
+        <span class="q-text">구매 전 체크리스트를 한눈에 볼 수 있을까요?</span>
+        <span class="q-arrow">▼</span>
+      </button>
+      <div class="faq-a">
+        주문 전 아래 항목을 모두 확인하세요.<br><br>
+        <div class="checklist-item"><div class="check-num">1</div><div>성인 전용 운동기구입니다. 어린이 사용 불가.</div></div>
+        <div class="checklist-item"><div class="check-num">2</div><div><strong>타공 모델</strong> — 벽 속 Wood Stud 위치 확인, Stud Finder 보유 여부 확인</div></div>
+        <div class="checklist-item"><div class="check-num">3</div><div><strong>무타공 모델</strong> — 천장 높이 2290~2389mm 확인, 바닥 카펫 여부 확인</div></div>
+        <div class="checklist-item"><div class="check-num">4</div><div>픽업 시 차량 크기 및 박스 사이즈 사전 확인</div></div>
+        <div class="checklist-item"><div class="check-num">5</div><div>Waiver 제출 필수 — 미제출 시 주문 자동 취소 (카카오톡 1대 1 채널 확인)</div></div>
+        <div class="checklist-item"><div class="check-num">6</div><div>결제 후 취소/환불 절대 불가 — 신중하게 선택</div></div>
+        <div class="checklist-item"><div class="check-num">7</div><div>나뭇결·나무가루·섬유질 민감하신 분 구매 비권장</div></div>
+        <div class="checklist-item"><div class="check-num">8</div><div>A/S 소요 기간 길 수 있음 (지역에 따라 최대 1년 이상)</div></div>
+        <div class="box box-red" style="margin-top:12px;">본 구매가이드에 나온 내용을 숙지 후 주문해 주세요. 설치 조건 미확인으로 인한 피해는 보상이 어렵습니다.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Dchoi Global Inc &nbsp;|&nbsp; david@dchoiglobal.com &nbsp;|&nbsp; dchoiglobal.com
+</footer>
+
+<script>
+function tog(btn) {
+  const item = btn.closest('.faq-item');
+  const ans = item.querySelector('.faq-a');
+  const open = item.classList.contains('open');
+  item.classList.toggle('open', !open);
+  ans.classList.toggle('open', !open);
+}
+</script>
+</body>
+</html>
